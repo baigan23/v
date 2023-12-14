@@ -3,22 +3,22 @@
 using namespace std;
 
 class SLL;
-class dnode
+class node
 {
     int div;
     int prn;
     char name[20];
-    dnode *next;
+    node *next;
 
     friend SLL;
 
 public:
-    dnode()
+    node()
     {
         next = NULL;
         div = prn = 0;
     }
-    dnode(int d, int p, char Name[])
+    node(int d, int p, char Name[])
     {
         div = d;
         prn = p;
@@ -30,9 +30,9 @@ public:
 class SLL
 {
 public:
-    dnode *head;
-    dnode *insert;
-    dnode *end;
+    node *head;
+    node *insert;
+    node *end;
 
     void create();
     void print();
@@ -40,7 +40,7 @@ public:
     void deleteMember();
     void count();
     void mergeList();
-    void recursionPrint(dnode *temp);
+    void recursionPrint(node *temp);
 
     SLL()
     {
@@ -61,21 +61,21 @@ void SLL::create()
     cout << "\nEnter the name, division and PRN of President: \n";
     cin >> Name >> d >> p;
 
-    head = new dnode(d, p, Name);
+    head = new node(d, p, Name);
     end = head;
 
     for (int i = 1; i < n - 1; i++)
     {
         cout << "\nEnter the name, division and PRN of members: \n";
         cin >> Name >> d >> p;
-        end->next = new dnode(d, p, Name);
+        end->next = new node(d, p, Name);
         end = end->next;
     }
     insert = end;
 
     cout << "\nEnter the name, division and PRN of SECRETARY: \n";
     cin >> Name >> d >> p;
-    end->next = new dnode(d, p, Name);
+    end->next = new node(d, p, Name);
     end = end->next;
     end->next = NULL;
 }
@@ -86,7 +86,7 @@ void SLL::insertMember()
     char Name[20];
     cout << "\nEnter the name, division and PRN of member to INSERT: \n";
     cin >> Name >> d >> p;
-    insert->next = new dnode(d, p, Name);
+    insert->next = new node(d, p, Name);
     insert = insert->next;
     insert->next = end;
 }
@@ -94,7 +94,7 @@ void SLL::insertMember()
 void SLL::deleteMember()
 {
     int searchPRN;
-    dnode *remove;
+    node *remove;
     cout << "Enter the PRN of member to delete: ";
     cin >> searchPRN;
     if (searchPRN == head->prn)
@@ -105,7 +105,7 @@ void SLL::deleteMember()
     }
     else
     {
-        for (dnode *temp = head; temp != insert; temp = temp->next)
+        for (node *temp = head; temp != insert; temp = temp->next)
         {
             if (temp->next->prn == searchPRN)
             {
@@ -132,7 +132,7 @@ void SLL::deleteMember()
 void SLL::count()
 {
     int count = 0;
-    for (dnode *temp = head; temp != NULL; temp = temp->next)
+    for (node *temp = head; temp != NULL; temp = temp->next)
         count++;
     cout << "\nTotal no. of students : " << count;
 }
@@ -140,7 +140,7 @@ void SLL::count()
 void SLL::print()
 {
     cout << "\n\nNAME\tDIV\tPRN\n";
-    for (dnode *temp = head; temp != NULL; temp = temp->next)
+    for (node *temp = head; temp != NULL; temp = temp->next)
         cout << temp->name << "\t" << temp->div << "\t" << temp->prn << "\n";
     cout << "\nPresident is: " << head->name;
     cout << "\nSecretary is: " << end->name << "\n";
@@ -155,7 +155,7 @@ void SLL::mergeList()
     list1.end = list2.end;
 }
 
-void SLL::recursionPrint(dnode *temp)
+void SLL::recursionPrint(node *temp)
 {
     if (temp == NULL)
         return;
