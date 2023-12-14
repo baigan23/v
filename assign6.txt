@@ -1,0 +1,50 @@
+def bucket_sort(arr):
+    # Find the maximum and minimum values in the array
+    max_val = max(arr)
+    min_val = min(arr)
+
+    # Calculate the range and the number of buckets
+    bucket_range = max_val - min_val
+    num_buckets = len(arr)
+
+    # Initialize buckets
+    buckets = [[] for _ in range(num_buckets)]
+
+    # Distribute the elements into buckets
+    for num in arr:
+        index = int((num - min_val) / (bucket_range / (num_buckets - 1)))
+        buckets[index].append(num)
+
+    # Sort each bucket individually (using a simple sorting algorithm like insertion sort)
+    for i in range(num_buckets):
+        buckets[i] = sorted(buckets[i])
+
+    # Concatenate the buckets to get the sorted array
+    sorted_arr = [num for bucket in buckets for num in bucket]
+
+    return sorted_arr
+
+def display_top_five(scores):
+    top_five = scores[-5:][::-1]  # Get the top five scores and reverse the order
+    print("Top five scores:")
+    for i, score in enumerate(top_five, start=1):
+        print(f"{i}. {score}%")
+
+# Main program
+if __name__ == "__main__":
+    # Input: 12th class percentage of students from user
+    num_students = int(input("Enter the number of students: "))
+    percentages = []
+
+    for i in range(num_students):
+        percentage = float(input(f"Enter the percentage for student {i + 1}: "))
+        percentages.append(percentage)
+
+    # Bucket sort the array
+    sorted_percentages = bucket_sort(percentages)
+
+    # Display the sorted array
+    print("Sorted percentages:", sorted_percentages)
+
+    # Display the top five scores
+    display_top_five(sorted_percentages)

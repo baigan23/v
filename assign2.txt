@@ -1,0 +1,31 @@
+def find_saddle_point(matrix):
+    rows = len(matrix)
+    cols = len(matrix[0])
+
+    for i in range(rows):
+        # Find the minimum value in the current row
+        min_val = min(matrix[i])
+
+        # Find the column index of the minimum value
+        min_index = matrix[i].index(min_val)
+
+        # Check if the minimum value is also the maximum in its column
+        if all(matrix[k][min_index] >= min_val for k in range(rows)):
+            return i, min_index  # Saddle point found
+
+    return None  # No saddle point found
+
+# Example Usage
+matrix = [
+    [4, 5, 6],
+    [3, 2, 1],
+    [8, 7, 9]
+]
+
+saddle_point = find_saddle_point(matrix)
+
+if saddle_point:
+    row, col = saddle_point
+    print(f"Saddle point found at matrix[{row}][{col}] with value {matrix[row][col]}")
+else:
+    print("No saddle point found.")
